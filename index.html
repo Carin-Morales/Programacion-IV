@@ -1,257 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App de Registro</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <title>App de Productos</title>
+    <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/vue-select@3.0.0/dist/vue-select.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style1.css">
 </head>
-
 <body>
-    <div class="container-fluid">
-        <div id="app">
-            <div class="card border-success mb-3">
-                <div class="card-header bg-success text-white" style="font-size: 20px; color: #fff;">SITEMA DE REGISTRO</div>
-            </div>
-            <div class="row">
-                <div class="col col-md-6">
-                    <div class="row p-1">
-                        <div class="col col-md-2">  CODIGO</div>
-                        <div class="col col-md-3">
-                            <input required pattern="[0-9]{3}" class="form-control" type="text" v-model="estudiante.codigo">
-                        </div>
-                    </div>
-                    <div class="row p-1">
-                        <div class="col-3 col-md-2">NOMBRE:</div>
-                        <div class="col-9 col-md-6">
-                            <input required pattern="[a-zA-Z]{3,65}" class="form-control" type="text" v-model="estudiante.nombre">
-                        </div>
-                    </div>
-                    <div class="row p-1">
-                        <div class="col col-md-2">DIRECCION</div>
-                        <div class="col col-md-5">
-                            <input required pattern="[a-zA-Z]{3,65}" v-model="estudiante.direccion" type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row p-1">
-                        <div class="col col-md-2">DEPARTAMEN. </div>
-                        <div class="col col-md-3">
-                            <select class="form-control" v-model="estudiante.departamento">
-                                <option value="Ahuachapán">Ahuachapán</option>
-                                <option value="Cabañas">Cabañas</option>
-                                <option value="Chalatenango">Chalatenango</option>
-                                <option value="Cuscatlán">Cuscatlán</option>
-                                <option value="La Libertad">La Libertad</option>
-                                <option value="La Paz">La Paz</option>
-                                <option value="La Unión">La Unión</option>
-                                <option value="Morazán">Morazán</option>
-                                <option value="San Miguel">San Miguel</option>
-                                <option value="San Salvador">San Salvador</option>
-                                <option value="San Vicente">San Vicente</option>
-                                <option value="Santa Ana">Santa Ana</option>
-                                <option value="Sonsonate">Sonsonate</option>
-                                <option value="Usulután">Usulután</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row p-1">
-                        <div class="col col-md-2">MUNICIPIO</div>
-                        <div class="col col-md-3">
-                            <input required pattern="[a-zA-Z]{3,65}" v-model="estudiante.municipio" type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row p-1">
-                        <div class="col col-md-2">Telefono</div>
-                        <div class="col col-md-5">
-                            <input pattern="[0-9]*" title="Ingrese solo números" v-model="estudiante.telefono"
-                                type="tel" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row p-1">
-                        <div class="col col-md-2">Fecha Nacimiento</div>
-                        <div class="col col-md-5">
-                            <input v-model="estudiante.fnacimiento" type="date" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row p-1">
-                        <div class="col col-md-2">SEXO</div>
-                        <div class="col col-md-5">
-                            <select class="form-control" v-model="estudiante.sexo">
-                                <option value="Masculino">Masculino</option>
-                                <option value="Femenino">Femenino</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row p-1 text-center">
-                        <div class="col">
-                            <button @click.prevent.default="guardarestudiante" class="btn btn-success">GUARDAR</button>
-                            <button @click.prevent.default="nuevoestudiante" class="btn btn-warning">NUEVO</button>
-                        </div>
+    <div class="container-fluid" id="app">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand">::.. BIBLIOTECA ..::</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" @click="abrirFormulario('matricula')">Autor</a>
+                        <a class="nav-link" @click="abrirFormulario('inscripcion')">Libro</a>
+                        
                     </div>
                 </div>
-                <div class="col col-md-6">
-                    <table class="table table-striped-columns">
-                        <thead>
-                            <tr>
-                                <th>BUSCAR</th>
-                                <th colspan="5">
-                                    <input placeholder="codigo, nombre, Telefono, sexo" type="search"
-                                        v-model="valor" @keyup="buscarEstudiante" class="form-control">
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>CODIGO</th>
-                                <th>NOMBRE</th>
-                                <th>TELEFONO</th>
-                                <th>F_NACIMIENTO</th>
-                                <th>SEXO</th>
-                                <th>ACCION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr @click="modificarestudiante(estudiante)" v-for="estudiante in estudiantes"
-                                :key="estudiante.idestudiante">
-                                <td>{{estudiante.codigo}}</td>
-                                <td>{{estudiante.nombre}}</td>
-                                <td>{{estudiante.telefono}}</td>
-                                <td>{{estudiante.fnacimiento}}</td>
-                                <td>{{estudiante.sexo}}</td>
-                                <td><button @click.prevent.default="eliminar(estudiante.idEstudiante)"
-                                        class="btn btn-danger">Eliminar</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
+        </nav>
+        <div id="appSistema">
+            <componente-matriculas ref="matricula" v-show="forms['matricula'].mostrar"></componente-matriculas>
+            <componente-inscripcions ref="inscripcion" v-show="forms['inscripcion'].mostrar"></componente-inscripcions>
+            
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
-    <script>
-        var app = new Vue({
-            el: '#app',
-            data: {
-                valor: '',
-                estudiantes: [],
-                accion: 'nuevo',
-                estudiante: {
-                    idProducto: new Date().getTime(),
-                    codigo: '',
-                    nombre: '',
-                    direccion: '',
-                    departamento: '',
-                    municipio: '',
-                    telefono: '',
-                    fnacimiento: '',
-                    sexo: '',
-                }
-            },
-            methods: {
-                buscarEstudiante() {
-                    if (this.valor === "") {
-                        this.listarestudiantes();
-                    } else {
-                        this.estudiantes = this.estudiantes.filter(estudiante =>
-                            estudiante.codigo.includes(this.valor) ||
-                            estudiante.nombre.toLowerCase().includes(this.valor.toLowerCase()) ||
-                            estudiante.telefono.toLowerCase().includes(this.valor.toLowerCase()) ||
-                            estudiante.sexo.toLowerCase().includes(this.valor.toLowerCase())
-                        );
-                    }
-                },
-            guardarestudiante() {
-                if (!this.estudiante.codigo.trim()) {
-                        alert('Por favor, ingrese el codigo del alumno.');
-                        return;
-                    }
-
-                    if (!this.estudiante.nombre.trim()) {
-                        alert('Por favor, ingrese el nombre del alumno.');
-                        return;
-                    }
-
-                    if (!this.estudiante.telefono.trim()) {
-                        alert('Por favor, ingrese el telefono del alumno.');
-                        return;
-                    }
-                    if (!this.estudiante.direccion.trim()) {
-                        alert('Por favor, ingrese el direccion del alumno.');
-                        return;
-                    }
-
-                    if (!this.estudiante.municipio.trim()) {
-                        alert('Por favor, ingrese el municipio del alumno.');
-                        return;
-                    }
-                    if (!this.estudiante.sexo.trim()) {
-                        alert('Por favor, ingrese el sexo del alumno.');
-                        return;
-                    }
-                    
-                if (this.accion === 'nuevo') {
-                    this.valor = this.estudiante.codigo.trim();
-                    this.listarestudiantes();
-                    if (this.estudiantes.some(est => est.codigo.toLowerCase() === this.valor.toLowerCase())) {
-                        alert("Código repetido");
-                    return;
-                }
-                    
-                    this.estudiantes.push({ ...this.estudiante });
-
-
-                } else if (this.accion === 'modificar') {
-                    let buscar = this.estudiantes.findIndex(est => est.idEstudiante === this.estudiante.idEstudiante);
-                    this.estudiantes.splice(buscar, 1, { ...this.estudiante });
-                    window.location.reload();
-                }
-                localStorage.setItem('estudiantes', JSON.stringify(this.estudiantes));
-                this.nuevoestudiante(); 
-            },
-
-
-                listarestudiantes() {
-                    this.estudiantes = JSON.parse(localStorage.getItem('estudiantes') || "[]");
-                },
-
-                modificarestudiante(estudiante) {
-                    this.accion = 'modificar';
-                    this.estudiante = estudiante; 
-                    
-                },
-
-                
-                eliminar(idEstudiante) {
-                    if (confirm(`¿Está seguro de eliminar?`)) {
-                        let indiceEliminar = this.estudiantes.findIndex(estudiante => estudiante.idEstudiante == idEstudiante);
-                        this.estudiantes.splice(indiceEliminar, 1);
-                        localStorage.setItem('estudiantes', JSON.stringify(this.estudiantes));
-                        this.nuevoestudiante();
-                        window.location.reload();
-                        
-                }
-
-            },
-                nuevoestudiante() {
-                    this.estudiante = {
-                        idEstudiante:'',
-                        codigo: '',
-                        nombre: '',
-                        direccion: '',
-                        departamento: '',
-                        municipio: '',
-                        telefono: '',
-                        fnacimiento: '',
-                        sexo: ''
-                    };
-                },
-            },
-            created() {
-                this.listarestudiantes();
-            }
-        })
-    </script>
+    <script src="https://unpkg.com/vue-select@3.0.0"></script>
+    <script src="db_USSS108722_USSS107522.js"></script>
+    <script src="matricula.js"></script>
+    <script src="inscripcion.js"></script>
+    <script src="imagenes.js"></script>
+    <script src="main.js"></script>
 </body>
-
 </html>
-
-
